@@ -1,0 +1,65 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.page-number, .page-number-product {
+    color: black;
+}
+
+.page-number:hover, .page-number-product:hover {
+    color: gray;
+}
+
+.current-page, .current-page-product {
+    font-weight: bold;
+}
+
+.page-number-back, .page-number-forward, .page-number-start, .page-number-end,
+.page-number-back-product, .page-number-forward-product, .page-number-start-product, .page-number-end-product {
+    color: black;
+}
+
+.page-number-back:hover, .page-number-forward:hover, .page-number-start:hover, .page-number-end:hover,
+.page-number-back-product:hover, .page-number-forward-product:hover, .page-number-start-product:hover, .page-number-end-product:hover {
+    color: gray;
+}
+ table#shopsTable {
+     margin: 0;
+ }
+
+ div#loading {
+     position: absolute;
+     display: inline-block;
+     top: 50%;
+     left: 50%;
+ }
+
+ div#loading img {
+     display: table-cell;
+     vertical-align: middle;
+     margin: 0;
+     margin: auto;
+     width: 70px;
+     height: 70px;
+ }

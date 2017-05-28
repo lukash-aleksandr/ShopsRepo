@@ -1,0 +1,23 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Shops";
+}
+
+<h2>Shops</h2>
+<div id="loading">
+    <img src='@Url.Content("~/Content/Images/loading_spinner.gif")'>
+</div>
+<div id="shops">
+
+    @Html.Partial("_Shops")
+</div>
+
+<div id="products">
+    @Html.Action("Index", "Product")
+</div>
+
+
+
+
+

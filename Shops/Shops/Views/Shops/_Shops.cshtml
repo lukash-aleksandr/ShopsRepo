@@ -1,0 +1,113 @@
+﻿@using Microsoft.Ajax.Utilities
+@model Shops.Models.PagedData<Shops.Models.ShopViewModel>
+
+<table id="shopsTable" class="table table-bordered">
+    <thead>
+    <tr><th>Name</th><th>Address</th><th>Time schedule</th><th></th></tr>
+    </thead>
+    <tbody id="shopList">
+    @foreach (var shop in Model.Data)
+    {
+        <tr>
+            <td>@shop.Name</td>
+            <td>@shop.Address</td>
+            <td>@shop.TimeSchedule</td>
+            <td><a class="product-call-link" href="javascript:loadProducts(@shop.Id, 1)">See products</a></td>
+        </tr>
+    }
+    </tbody>
+    @if (Model.NumberOfPages > 0)
+    {
+        <tfoot>
+            <tr>
+                <td colspan="6" class="pager">
+                    @if (Model.CurrentPage != 1)
+                    {
+                        <a class="page-number-start" href="javascript:void();"><<</a>
+                        <a class="page-number-back" href="javascript:void();"><</a>
+                    }
+                    @for (int i = Model.StartSectionNumber + 1; i <= Model.EndSectionNumber; i++)
+                    {
+                        if (i != Model.CurrentPage)
+                        {
+                            <a class="page-number" href="javascript:void();">@i</a>
+                        }
+                        else
+                        {
+                            <a class="page-number current-page" href="javascript:void();">@i</a>
+                        }
+                    }
+                    @if (Model.CurrentPage != Model.NumberOfPages)
+                    {
+                        <a class="page-number-forward" href="javascript:void();">></a>
+                        <a class="page-number-end" href="javascript:void();">>></a>
+                    }
+                </td>
+            </tr>
+        </tfoot>
+    }
+    
+</table>
+
+<script type="text/javascript">
+    function loadProducts(shopId, page) {
+        if (page > -1) {
+            $('div#loading').show();
+
+            $.ajax({
+                type: 'GET',
+                url: '/Product/Index?shopId=' + shopId + '&id=' + page,
+                success: function (data, textstatus) {
+                    $("#products").html(data);
+                    $("div#loading").hide();
+                }
+            });
+        }
+    }
+
+    $(document).ready(function() {
+        $("div#loading").hide();
+
+
+        function loadShops(page) {
+            if (page > -1) {
+                $('div#loading').show();
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/Shops/Index/' + page,
+                    success: function(data, textstatus) {
+                        $("#shops").html(data);
+                        $("div#loading").hide();
+                    }
+                });
+            }
+        }
+
+        $(".page-number").click(function() {
+            var page = parseInt($(this).html());
+            loadShops(page);
+        });
+
+        $(".page-number-back").click(function() {
+            var page = parseInt($('.current-page').html()) - 1;
+            loadShops(page);
+        });
+
+        $(".page-number-forward").click(function() {
+            var page = parseInt($('.current-page').html()) + 1;
+            loadShops(page);
+        });
+
+        $(".page-number-start").click(function() {
+            var page = 1;
+            loadShops(page);
+        });
+
+        $(".page-number-end").click(function() {
+            var page = @Model.NumberOfPages;
+            loadShops(page);
+        });
+    });
+</script>
+
